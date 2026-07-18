@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
         idView = (TextView) findViewById(R.id.productID);
         productBox = (EditText) findViewById(R.id.productName);
         skuBox = (EditText) findViewById(R.id.productSku);
