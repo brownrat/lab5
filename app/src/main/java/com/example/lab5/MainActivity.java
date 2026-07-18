@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     TextView idView;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
 
         idView = (TextView) findViewById(R.id.productID);
         productBox = (EditText) findViewById(R.id.productName);
@@ -41,15 +43,20 @@ public class MainActivity extends AppCompatActivity {
 
         int sku = Integer.parseInt(skuBox.getText().toString());
 
-        Product product = new Product(productBox.getText().toString(), sku);
+        if (ProductValidator.isValidSku(sku)) {
+            Product product = new Product(productBox.getText().toString(), sku);
 
-        // TODO: add to database
-        MyDBHandler dbHandler = new MyDBHandler(this);
-        dbHandler.addProduct(product);
+            // TODO: add to database
+            MyDBHandler dbHandler = new MyDBHandler(this);
+            dbHandler.addProduct(product);
 
-        productBox.setText("");
+            productBox.setText("");
 
-        skuBox.setText("");
+            skuBox.setText("");
+        } else {
+            Toast toast = Toast.makeText(this, "Invalid SKU", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
 
